@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <link rel="stylesheet" href="style.css">
+      <title>Route Calculator</title>
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbKiWJiDVJCpUhfXvRllUooEz5ZAucDOk&callback=initMap&v=weekly&map_ids=d582dcfd856648f6"
+      defer></script>
+      <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBbKiWJiDVJCpUhfXvRllUooEz5ZAucDOk&callback=initMap&v=weekly&map_ids=d582dcfd856648f6"
+      defer></script> -->
+  </head>
+
+  <body>
+    <div class ="container">
+      <div id="map" style="width: 600px; height: 400px;"></div>
+      <label>Origin</label>
+      <input id="origin" type="textbox">
+      <label>Destination</label>
+      <!-- <input id="destination" type="textbox"> -->
+      <select id="destination" name="cars">
+        <option class="option" value="null">Choose an attraction</option>
+        <option value="Space Needle">Space Needle, Seattle WA</option>
+        <option value="Disneyland">Disneyland, Anaheim CA</option>
+        <option value="Old Faithful">Old Faithful, Yellowstone WY</option>
+        <option value="Grand Canyon">Grand Canyon, Arizona</option>
+        <option value="Mt. Rushmore">Mt. Rushmore, South Dakota</option>
+        <option value="The Alamo">The Alamo, San Antonio TX</option>
+        <option value="Gateway Arch">Gateway Arch, St. Louis MO</option>
+        <option value="Niagara Falls">Niagara Falls, New York</option>
+        <option value="National Mall">National Mall, Washington DC</option>
+        <option value="Disney World">Disney World, Orlando FL</option>
+      </select>
+      <input type="button" value="Search Route" onclick="calcRoute()">
+    </div>
+
+
+    <script>
+      let directionsService;
+      let directionsRenderer
+      let map;
+
+      // Initialize and add the map
+      function initMap() {
+          directionsService = new google.maps.DirectionsService();
+          directionsRenderer = new google.maps.DirectionsRenderer();
+          const coordinates = { lat: 39, lng: -98 };
+          
+          map = new google.maps.Map(document.getElementById("map"), {
+              zoom: 3.8,
+              center: coordinates,
+              mapId: "d582dcfd856648f6",
+              disableDefaultUI: true,
+          });
+          directionsRenderer.setMap(map);
+      }
+
+      function calcRoute() {
+          let start = document.getElementById('origin').value;
+          let end = document.getElementById('destination').value;
+          let request = {
+              origin: start,
+              destination: end,
+              travelMode: 'DRIVING'
+          };
+          directionsService.route(request, function (result, status) {
+              if (status == 'OK') {
+                  directionsRenderer.setDirections(result);
+              } else { alert("An unexpected error occurred")}
+          });
+      }
+
+
+    </script>
+        
+  </body>
+
+</html>
