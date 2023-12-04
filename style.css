@@ -16,14 +16,6 @@ input {
   outline: none;
 }
 
-/* text:focus {
-  margin:1em 0;
-  color: #69768a;
-  padding:.2em;
-  border: 1px solid hsl(217, 35%, 75%);
-  border-radius: .5em;
-} */
-
 select {
   color: #69768a;
   padding:.2em;
